@@ -1,0 +1,22 @@
+{
+  "extends": ["standard-with-typescript"],
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  },
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "@typescript-eslint/comma-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "@typescript-eslint/no-extraneous-class": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/return-await": "off",
+    "@typescript-eslint/no-redeclare": "off",
+    "@typescript-eslint/no-misused-promises": "off"
+  }
+}
