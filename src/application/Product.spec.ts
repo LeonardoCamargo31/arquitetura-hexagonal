@@ -25,8 +25,7 @@ describe('Product', () => {
       }
 
       const product = new Product(data)
-      const error = product.enable()
-      expect(error.message).toBe('the price must be greater than zero to enable product')
+      expect(() => product.enable()).toThrow('the price must be greater than zero to enable product')
     })
   })
 
@@ -52,8 +51,7 @@ describe('Product', () => {
       }
 
       const product = new Product(data)
-      const error = product.disable()
-      expect(error.message).toBe('the price must be zero in order to have the product disabled')
+      expect(() => product.disable()).toThrow('the price must be zero in order to have the product disabled')
     })
   })
 

@@ -29,21 +29,13 @@ export class ProductService implements IProductService {
     return this.productPersistence.save(product)
   }
 
-  enable (product: IProduct): IProduct | Error {
-    const error = product.enable()
-    if (error) {
-      return error
-    }
-
+  enable (product: IProduct): IProduct {
+    product.enable()
     return this.productPersistence.save(product)
   }
 
-  disable (product: IProduct): IProduct | Error {
-    const error = product.disable()
-    if (error) {
-      return error
-    }
-
+  disable (product: IProduct): IProduct {
+    product.disable()
     return this.productPersistence.save(product)
   }
 }

@@ -66,15 +66,14 @@ describe('ProductService', () => {
     it('should enable a product', () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 10 })
-      const response = sut.enable(product) as IProduct
+      const response = sut.enable(product)
       expect(response.getStatus()).toBe(StatusProduct.ENABLED)
     })
 
     it('should return error, if price is less than zero', () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 0 })
-      const response = sut.enable(product) as Error
-      expect(response.message).toBe('the price must be greater than zero to enable product')
+      expect(() => sut.enable(product)).toThrow('the price must be greater than zero to enable product')
     })
   })
 
@@ -82,15 +81,14 @@ describe('ProductService', () => {
     it('should disable a product', () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 0 })
-      const response = sut.disable(product) as IProduct
+      const response = sut.disable(product)
       expect(response.getStatus()).toBe(StatusProduct.DISABLED)
     })
 
     it('should return error, if price is greater than zero', () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 10 })
-      const response = sut.disable(product) as Error
-      expect(response.message).toBe('the price must be zero in order to have the product disabled')
+      expect(() => sut.disable(product)).toThrow('the price must be zero in order to have the product disabled')
     })
   })
 })

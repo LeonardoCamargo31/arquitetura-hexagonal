@@ -56,19 +56,19 @@ export class Product implements IProduct {
     }
   }
 
-  enable (): null | Error {
+  enable (): null {
     if (this.price > 0) {
       this.status = StatusProduct.ENABLED
       return null
     }
-    return new Error('the price must be greater than zero to enable product')
+    throw new Error('the price must be greater than zero to enable product')
   }
 
-  disable (): null | Error {
+  disable (): null {
     if (this.price === 0) {
       this.status = StatusProduct.DISABLED
       return null
     }
-    return new Error('the price must be zero in order to have the product disabled')
+    throw new Error('the price must be zero in order to have the product disabled')
   }
 }
