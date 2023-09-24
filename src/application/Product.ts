@@ -1,19 +1,5 @@
 import { z } from 'zod'
-
-export interface IProduct {
-  isValid: () => boolean
-  enable: () => null | Error
-  disable: () => null | Error
-  getId: () => string
-  getName: () => string
-  getStatus: () => string
-  getPrice: () => number
-}
-
-export enum StatusProduct {
-  DISABLED='disable',
-  ENABLED='enabled'
-}
+import { IProduct, StatusProduct } from './interface/IProduct'
 
 const produtoSchema = z.object({
   id: z.string().refine((value) => {
@@ -45,6 +31,22 @@ export class Product implements IProduct {
     this.status = status
   }
 
+  getId (): string {
+    return this.id
+  }
+
+  getName (): string {
+    return this.name
+  }
+
+  getStatus (): string {
+    return this.status
+  }
+
+  getPrice (): number {
+    return this.price
+  }
+
   isValid (): boolean {
     try {
       produtoSchema.parse(this)
@@ -68,21 +70,5 @@ export class Product implements IProduct {
       return null
     }
     return new Error('the price must be zero in order to have the product disabled')
-  }
-
-  getId (): string {
-    return this.id
-  }
-
-  getName (): string {
-    return this.name
-  }
-
-  getStatus (): string {
-    return this.status
-  }
-
-  getPrice (): number {
-    return this.price
   }
 }

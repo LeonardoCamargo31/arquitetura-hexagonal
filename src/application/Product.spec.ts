@@ -1,12 +1,13 @@
-import { Product, StatusProduct } from './product'
+import { Product } from './Product'
 import { v4 as uuidv4 } from 'uuid'
+import { StatusProduct } from './interface/IProduct'
 
 describe('Product', () => {
   describe('enable', () => {
     it('should return null if price is greater than zero', () => {
       const data = {
-        id: '1',
-        name: 'Hello',
+        id: uuidv4(),
+        name: 'any_name',
         price: 10,
         status: StatusProduct.DISABLED
       }
@@ -17,8 +18,8 @@ describe('Product', () => {
 
     it('should return error, if price is less than zero', () => {
       const data = {
-        id: '1',
-        name: 'Hello',
+        id: uuidv4(),
+        name: 'any_name',
         price: 0,
         status: StatusProduct.DISABLED
       }
@@ -32,8 +33,8 @@ describe('Product', () => {
   describe('disable', () => {
     it('should return null if price is equal to zero', () => {
       const data = {
-        id: '1',
-        name: 'Hello',
+        id: uuidv4(),
+        name: 'any_name',
         price: 0,
         status: StatusProduct.DISABLED
       }
@@ -44,8 +45,8 @@ describe('Product', () => {
 
     it('should return error, if price is greater than zero', () => {
       const data = {
-        id: '1',
-        name: 'Hello',
+        id: uuidv4(),
+        name: 'any_name',
         price: 10,
         status: StatusProduct.DISABLED
       }
@@ -60,7 +61,7 @@ describe('Product', () => {
     it('should return true with valid product', () => {
       const data = {
         id: uuidv4(),
-        name: 'Hello',
+        name: 'any_name',
         price: 10,
         status: StatusProduct.DISABLED
       }
@@ -72,7 +73,7 @@ describe('Product', () => {
     it('should return false with invalid product', () => {
       const data = {
         id: uuidv4(),
-        name: 'Hello',
+        name: 'any_name',
         price: 10,
         status: 'Invalid' as StatusProduct
       }
