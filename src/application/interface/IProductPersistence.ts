@@ -1,11 +1,11 @@
 import { IProduct } from './IProduct'
 
 export interface IProductReader {
-  get: (id: string) => IProduct
+  get: (id: string) => Promise<IProduct>
 }
 
 export interface IProductWriter {
-  save: (product: IProduct) => IProduct
+  save: (product: IProduct) => Promise<IProduct>
 }
 
 export interface IProductPersistence extends IProductReader, IProductWriter {}

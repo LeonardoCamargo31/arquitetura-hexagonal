@@ -23,12 +23,12 @@ class ProductPersistenceStub implements IProductPersistence {
     this.product = new Product(mockProduct)
   }
 
-  get (id: string): IProduct {
-    return this.product
+  async get (id: string): Promise<IProduct> {
+    return new Promise((resolve, reject) => resolve(this.product))
   }
 
-  save (product: IProduct): IProduct {
-    return product
+  async save (product: IProduct): Promise<IProduct> {
+    return new Promise((resolve, reject) => resolve(product))
   }
 }
 
@@ -41,15 +41,15 @@ const makeSut = (): SutTypes => {
 
 describe('ProductService', () => {
   describe('get', () => {
-    it('should return a product', () => {
+    it('should return a product', async () => {
       const { sut } = makeSut()
-      const product = sut.get(mockProduct.id)
+      const product = await sut.get(mockProduct.id)
       expect(product.getId()).toBe(mockProduct.id)
     })
   })
 
   describe('create', () => {
-    it('should create a new product', () => {
+    it('should create a new product', async () => {
       const { sut } = makeSut()
       const data: ProductProps = {
         id: mockProduct.id,
@@ -57,11 +57,11 @@ describe('ProductService', () => {
         price: mockProduct.price,
         status: mockProduct.status
       }
-      const product = sut.create(data)
+      const product = await sut.create(data)
       expect(product.getId()).toBe(mockProduct.id)
     })
 
-    it('should return null if invalid product', () => {
+    it('should return null if invalid product', async () => {
       const { sut } = makeSut()
       const data: ProductProps = {
         id: 'invalid_id',
@@ -69,38 +69,40 @@ describe('ProductService', () => {
         price: mockProduct.price,
         status: mockProduct.status
       }
-      const product = sut.create(data)
+      const product = await sut.create(data)
       expect(product).toBeNull()
     })
   })
 
   describe('enable', () => {
-    it('should enable a product', () => {
+    it('should enable a product', async () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 10 })
-      const response = sut.enable(product)
+      const response = await sut.enable(product)
       expect(response.getStatus()).toBe(StatusProduct.ENABLED)
     })
 
-    it('should return error, if price is less than zero', () => {
+    it('should return error, if price is less than zero', async () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 0 })
-      expect(() => sut.enable(product)).toThrow('the price must be greater than zero to enable product')
+      const promise = sut.enable(product)
+      await expect(promise).rejects.toThrow('the price must be greater than zero to enable product')
     })
   })
 
   describe('disable', () => {
-    it('should disable a product', () => {
+    it('should disable a product', async () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 0 })
-      const response = sut.disable(product)
+      const response = await sut.disable(product)
       expect(response.getStatus()).toBe(StatusProduct.DISABLED)
     })
 
-    it('should return error, if price is greater than zero', () => {
+    it('should return error, if price is greater than zero', async () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 10 })
-      expect(() => sut.disable(product)).toThrow('the price must be zero in order to have the product disabled')
+      const promise = sut.disable(product)
+      await expect(promise).rejects.toThrow('the price must be zero in order to have the product disabled')
     })
   })
 })

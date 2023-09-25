@@ -10,11 +10,11 @@ export class ProductService implements IProductService {
     this.productPersistence = productPersistence
   }
 
-  get (id: string): IProduct {
+  async get (id: string): Promise<IProduct> {
     return this.productPersistence.get(id)
   }
 
-  create ({ id, name, price, status }: ProductProps): IProduct {
+  async create ({ id, name, price, status }: ProductProps): Promise<IProduct> {
     const product = new Product({
       id,
       name,
@@ -29,12 +29,12 @@ export class ProductService implements IProductService {
     return this.productPersistence.save(product)
   }
 
-  enable (product: IProduct): IProduct {
+  async enable (product: IProduct): Promise<IProduct> {
     product.enable()
     return this.productPersistence.save(product)
   }
 
-  disable (product: IProduct): IProduct {
+  async disable (product: IProduct): Promise<IProduct> {
     product.disable()
     return this.productPersistence.save(product)
   }
