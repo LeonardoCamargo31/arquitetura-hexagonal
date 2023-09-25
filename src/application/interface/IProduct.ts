@@ -3,10 +3,17 @@ export enum StatusProduct {
   ENABLED='enabled'
 }
 
+export type ProductProps = {
+  id: string
+  name: string
+  price: number
+  status: StatusProduct
+}
+
 export interface IProduct {
   isValid: () => boolean
-  enable: () => null | Error
-  disable: () => null | Error
+  enable: () => null
+  disable: () => null
   getId: () => string
   getName: () => string
   getStatus: () => string

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { IProduct, StatusProduct } from './interface/IProduct'
+import { IProduct, ProductProps, StatusProduct } from './interface/IProduct'
 
 const produtoSchema = z.object({
   id: z.string().refine((value) => {
@@ -10,13 +10,6 @@ const produtoSchema = z.object({
   price: z.number(),
   status: z.nativeEnum(StatusProduct)
 })
-
-type ProductProps = {
-  id?: string
-  name: string
-  price: number
-  status: StatusProduct
-}
 
 export class Product implements IProduct {
   private readonly id

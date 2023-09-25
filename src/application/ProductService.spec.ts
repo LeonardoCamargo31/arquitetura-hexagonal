@@ -1,6 +1,6 @@
 import { Product } from './Product'
 import { ProductService } from './ProductService'
-import { IProduct, StatusProduct } from './interface/IProduct'
+import { IProduct, ProductProps, StatusProduct } from './interface/IProduct'
 import { IProductPersistence } from './interface/IProductPersistence'
 import { IProductService } from './interface/IProductService'
 import { v4 as uuidv4 } from 'uuid'
@@ -51,13 +51,25 @@ describe('ProductService', () => {
   describe('create', () => {
     it('should create a new product', () => {
       const { sut } = makeSut()
-      const product = sut.create(mockProduct.id, mockProduct.name, mockProduct.price, mockProduct.status)
+      const data: ProductProps = {
+        id: mockProduct.id,
+        name: mockProduct.name,
+        price: mockProduct.price,
+        status: mockProduct.status
+      }
+      const product = sut.create(data)
       expect(product.getId()).toBe(mockProduct.id)
     })
 
     it('should return null if invalid product', () => {
       const { sut } = makeSut()
-      const product = sut.create('invalid_id', mockProduct.name, mockProduct.price, mockProduct.status)
+      const data: ProductProps = {
+        id: 'invalid_id',
+        name: mockProduct.name,
+        price: mockProduct.price,
+        status: mockProduct.status
+      }
+      const product = sut.create(data)
       expect(product).toBeNull()
     })
   })
