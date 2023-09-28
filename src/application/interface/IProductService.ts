@@ -1,8 +1,8 @@
-import { IProduct, ProductProps } from './IProduct'
+import { IProduct } from './IProduct'
 
 export interface IProductService {
   get: (id: string) => Promise<IProduct>
-  create: (product: ProductProps) => Promise<IProduct>
+  create: (name: string, price: number) => Promise<IProduct>
   enable: (product: IProduct) => Promise<IProduct>
   disable: (product: IProduct) => Promise<IProduct>
 }

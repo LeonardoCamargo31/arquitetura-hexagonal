@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { IProduct, ProductProps, StatusProduct } from './interface/IProduct'
+import { v4 as uuidv4 } from 'uuid'
 
 const produtoSchema = z.object({
   id: z.string().refine((value) => {
@@ -22,6 +23,15 @@ export class Product implements IProduct {
     this.name = name
     this.price = price
     this.status = status
+  }
+
+  static newProduct ({ name, price }: ProductProps): IProduct {
+    return new Product({
+      id: uuidv4(),
+      name,
+      price,
+      status: StatusProduct.DISABLED
+    })
   }
 
   getId (): string {

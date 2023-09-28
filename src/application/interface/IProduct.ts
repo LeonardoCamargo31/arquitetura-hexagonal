@@ -4,10 +4,10 @@ export enum StatusProduct {
 }
 
 export type ProductProps = {
-  id: string
-  name: string
-  price: number
-  status: StatusProduct
+  id?: string
+  name?: string
+  price?: number
+  status?: StatusProduct
 }
 
 export interface IProduct {

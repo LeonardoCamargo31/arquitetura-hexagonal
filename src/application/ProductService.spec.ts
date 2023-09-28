@@ -1,6 +1,6 @@
 import { Product } from './Product'
 import { ProductService } from './ProductService'
-import { IProduct, ProductProps, StatusProduct } from './interface/IProduct'
+import { IProduct, StatusProduct } from './interface/IProduct'
 import { IProductPersistence } from './interface/IProductPersistence'
 import { IProductService } from './interface/IProductService'
 import { v4 as uuidv4 } from 'uuid'
@@ -40,6 +40,23 @@ const makeSut = (): SutTypes => {
 }
 
 describe('ProductService', () => {
+  let newProductMock
+  let productData: IProduct
+
+  beforeEach(() => {
+    productData = new Product({
+      id: mockProduct.id,
+      name: mockProduct.name,
+      price: mockProduct.price,
+      status: StatusProduct.DISABLED
+    })
+    newProductMock = jest.spyOn(Product, 'newProduct').mockReturnValue(productData)
+  })
+
+  afterEach(() => {
+    newProductMock.mockRestore()
+  })
+
   describe('get', () => {
     it('should return a product', async () => {
       const { sut } = makeSut()
@@ -51,25 +68,14 @@ describe('ProductService', () => {
   describe('create', () => {
     it('should create a new product', async () => {
       const { sut } = makeSut()
-      const data: ProductProps = {
-        id: mockProduct.id,
-        name: mockProduct.name,
-        price: mockProduct.price,
-        status: mockProduct.status
-      }
-      const product = await sut.create(data)
+      const product = await sut.create(mockProduct.name, mockProduct.price)
       expect(product.getId()).toBe(mockProduct.id)
     })
 
     it('should return null if invalid product', async () => {
       const { sut } = makeSut()
-      const data: ProductProps = {
-        id: 'invalid_id',
-        name: mockProduct.name,
-        price: mockProduct.price,
-        status: mockProduct.status
-      }
-      const product = await sut.create(data)
+      jest.spyOn(productData, 'isValid').mockReturnValue(false)
+      const product = await sut.create(mockProduct.name, -1)
       expect(product).toBeNull()
     })
   })

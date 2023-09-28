@@ -1,5 +1,5 @@
 import { Product } from './Product'
-import { IProduct, ProductProps } from './interface/IProduct'
+import { IProduct } from './interface/IProduct'
 import { IProductPersistence } from './interface/IProductPersistence'
 import { IProductService } from './interface/IProductService'
 
@@ -14,13 +14,8 @@ export class ProductService implements IProductService {
     return this.productPersistence.get(id)
   }
 
-  async create ({ id, name, price, status }: ProductProps): Promise<IProduct> {
-    const product = new Product({
-      id,
-      name,
-      price,
-      status
-    })
+  async create (name: string, price: number): Promise<IProduct> {
+    const product = Product.newProduct({ name, price })
 
     if (!product.isValid()) {
       return null

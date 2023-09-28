@@ -17,19 +17,18 @@ export class ProductPersistence implements IProductPersistence {
     })
   }
 
-  async save (product: IProduct): Promise<IProduct> {
+  private async update (product: IProduct): Promise<IProduct> {
     const productCollection = await MongoHelper.getCollection('product')
-    const productExists = await this.get(product.getId())
+    await productCollection.updateOne(
+      { id: product.getId() },
+      { $set: { ...product } }
+    )
 
-    if (productExists) {
-      await productCollection.updateOne(
-        { id: product.getId() },
-        { $set: { ...product } }
-      )
+    return await this.get(product.getId())
+  }
 
-      return await this.get(product.getId())
-    }
-
+  private async create (product: IProduct): Promise<IProduct> {
+    const productCollection = await MongoHelper.getCollection('product')
     const record = await productCollection.insertOne(product)
     const data = record.ops[0]
 
@@ -39,5 +38,13 @@ export class ProductPersistence implements IProductPersistence {
       price: data.price,
       status: data.status
     })
+  }
+
+  async save (product: IProduct): Promise<IProduct> {
+    const productExists = await this.get(product.getId())
+    if (productExists) {
+      return await this.update(product)
+    }
+    return await this.create(product)
   }
 }
