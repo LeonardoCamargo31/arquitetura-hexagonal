@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.ts",
+    "build": "npx tsc --skipLibCheck --project ./",
+    "start": "node dist/index.js",
+    "cli": "node dist/cli.js",
+    "cli:dev": "nodemon src/cli.ts -a create -n 'product any' -p 25.0",
     "test": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watchAll -c jest-unit.config.js",
     "test:ci": "npm test -- --coverage --forceExit"
@@ -25,10 +28,14 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-standard": "^5.0.0",
     "jest": "^29.3.1",
+    "nodemon": "^3.0.1",
     "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
     "typescript": "^4.4.3"
   },
   "dependencies": {
+    "commander": "^11.0.0",
+    "dotenv": "^8.2.0",
     "mongodb": "^3.6.9",
     "uuid": "^9.0.1",
     "zod": "^3.22.2"
