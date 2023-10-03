@@ -1,10 +1,12 @@
-import { IHandler, IHttpRequest } from '../handler/Product'
 import { Request, Response } from 'express'
+import { IHandler } from '../handler/IHandler'
+import { IHttpRequest } from '../handler/IHttpRequest'
 
 export const adapterRouter = (handler: IHandler): any => {
   return async (req: Request, res: Response) => {
     const httpRequest: IHttpRequest = {
-      params: req.params
+      params: req.params,
+      body: req.body
     }
     const httpResponse = await handler.handle(httpRequest)
     if (httpResponse.status === 200) {

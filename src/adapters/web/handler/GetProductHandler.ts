@@ -1,19 +1,9 @@
 import { ProductService } from '../../../application/ProductService'
 import { IProductService } from '../../../application/interface/IProductService'
 import { ProductPersistence } from '../../database/ProductPersistence'
-
-export interface IHttpResponse {
-  status: number
-  body: any
-}
-
-export interface IHttpRequest {
-  params?: Record<string, string>
-}
-
-export interface IHandler {
-  handle: (request: IHttpRequest) => Promise<IHttpResponse>
-}
+import { IHandler } from './IHandler'
+import { IHttpRequest } from './IHttpRequest'
+import { IHttpResponse } from './IHttpResponse'
 
 export class GetProductHandler implements IHandler {
   private readonly productService: IProductService
