@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx tsc --skipLibCheck --project ./",
     "start": "node dist/index.js",
+    "dev": "nodemon ./src/server.ts",
     "cli": "node dist/cli.js",
     "cli:dev": "nodemon src/cli.ts -a create -n 'product any' -p 25.0",
     "test": "jest --passWithNoTests --runInBand",
