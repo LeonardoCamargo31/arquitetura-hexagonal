@@ -1,9 +1,9 @@
 import { ProductService } from '../../../application/ProductService'
 import { IProductService } from '../../../application/interface/IProductService'
-import { ProductPersistence } from '../../database/ProductPersistence'
-import { IHandler } from './IHandler'
-import { IHttpRequest } from './IHttpRequest'
-import { IHttpResponse } from './IHttpResponse'
+import { ProductRepository } from '../../database/mongodb/ProductRepository'
+import { IHandler } from './interface/IHandler'
+import { IHttpRequest } from './interface/IHttpRequest'
+import { IHttpResponse } from './interface/IHttpResponse'
 
 export class GetProductHandler implements IHandler {
   private readonly productService: IProductService
@@ -26,7 +26,7 @@ export class GetProductHandler implements IHandler {
 }
 
 export const makeGetProductHandler = (): IHandler => {
-  const productPersistence = new ProductPersistence()
-  const productService = new ProductService(productPersistence)
+  const productRepository = new ProductRepository()
+  const productService = new ProductService(productRepository)
   return new GetProductHandler(productService)
 }

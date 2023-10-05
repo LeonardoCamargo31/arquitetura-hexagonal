@@ -1,6 +1,6 @@
-import { Product } from '../../application/Product'
-import { IProduct } from '../../application/interface/IProduct'
-import { IProductRepository } from '../../application/interface/IProductRepository'
+import { Product } from '../../../application/Product'
+import { IProduct } from '../../../application/interface/IProduct'
+import { IProductRepository } from '../../../application/interface/IProductRepository'
 import { MongoHelper } from './MongoHelper'
 
 export class ProductRepository implements IProductRepository {
@@ -21,11 +21,11 @@ export class ProductRepository implements IProductRepository {
   private async update (product: IProduct): Promise<IProduct> {
     const productCollection = await MongoHelper.getCollection('product')
     await productCollection.updateOne(
-      { id: product.getId() },
+      { id: product.getId },
       { $set: { ...product } }
     )
 
-    return await this.get(product.getId())
+    return await this.get(product.getId)
   }
 
   private async create (product: IProduct): Promise<IProduct> {
@@ -42,7 +42,7 @@ export class ProductRepository implements IProductRepository {
   }
 
   async save (product: IProduct): Promise<IProduct> {
-    const productExists = await this.get(product.getId())
+    const productExists = await this.get(product.getId)
     if (productExists) {
       return await this.update(product)
     }

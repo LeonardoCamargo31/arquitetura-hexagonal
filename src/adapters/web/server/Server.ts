@@ -1,8 +1,8 @@
 import express, { Express, Router } from 'express'
-import { makeGetProductHandler } from '../handler/GetProductHandler'
+import bodyParser from 'body-parser'
 import { adapterRouter } from './AdapterRouter'
 import { makeCreateProductHandler } from '../handler/CreateProductHandler'
-import bodyParser from 'body-parser'
+import { makeGetProductHandler } from '../handler/GetProductHandler'
 import { makeEnableProductHandler } from '../handler/EnableProductHandler'
 import { makeDisableProductHandler } from '../handler/DisableProductHandler'
 

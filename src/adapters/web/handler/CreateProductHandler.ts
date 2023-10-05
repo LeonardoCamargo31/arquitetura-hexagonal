@@ -1,11 +1,11 @@
 import { ProductService } from '../../../application/ProductService'
 import { StatusProduct } from '../../../application/interface/IProduct'
 import { IProductService } from '../../../application/interface/IProductService'
-import { ProductPersistence } from '../../database/ProductPersistence'
+import { ProductRepository } from '../../database/mongodb/ProductRepository'
 import { ProductDTO } from '../../dto/ProductDTO'
-import { IHandler } from './IHandler'
-import { IHttpRequest } from './IHttpRequest'
-import { IHttpResponse } from './IHttpResponse'
+import { IHandler } from './interface/IHandler'
+import { IHttpRequest } from './interface/IHttpRequest'
+import { IHttpResponse } from './interface/IHttpResponse'
 
 export class CreateProductHandler implements IHandler {
   private readonly productService: IProductService
@@ -39,7 +39,7 @@ export class CreateProductHandler implements IHandler {
 }
 
 export const makeCreateProductHandler = (): IHandler => {
-  const productPersistence = new ProductPersistence()
-  const productService = new ProductService(productPersistence)
+  const productRepository = new ProductRepository()
+  const productService = new ProductService(productRepository)
   return new CreateProductHandler(productService)
 }

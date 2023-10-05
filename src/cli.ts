@@ -1,8 +1,8 @@
 import { program } from 'commander'
 import { run } from './adapters/cli/Product'
 import { ProductService } from './application/ProductService'
-import { ProductPersistence } from './adapters/database/ProductPersistence'
-import { MongoHelper } from './adapters/database/MongoHelper'
+import { ProductRepository } from './adapters/database/mongodb/ProductRepository'
+import { MongoHelper } from './adapters/database/mongodb/MongoHelper'
 import * as dotenv from 'dotenv'
 import path from 'path'
 
@@ -22,8 +22,8 @@ console.log('options', options)
 MongoHelper.connect(process.env.MONGO_URL)
   .then(async () => {
     console.log('db connected')
-    const productPersistence = new ProductPersistence()
-    const productService = new ProductService(productPersistence)
+    const productRepository = new ProductRepository()
+    const productService = new ProductService(productRepository)
     const result = await run(
       productService,
       options.action,

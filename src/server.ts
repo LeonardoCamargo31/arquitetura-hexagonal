@@ -1,5 +1,5 @@
 import { makeWebServer } from './adapters/web/server/Server'
-import { MongoHelper } from './adapters/database/MongoHelper'
+import { MongoHelper } from './adapters/database/mongodb/MongoHelper'
 import * as dotenv from 'dotenv'
 import path from 'path'
 

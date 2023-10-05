@@ -11,11 +11,11 @@ export type ProductProps = {
 }
 
 export interface IProduct {
+  readonly getId: string
+  readonly getName: string
+  readonly getStatus: string
+  readonly getPrice: number
   isValid: () => boolean
   enable: () => null
   disable: () => null
-  getId: () => string
-  getName: () => string
-  getStatus: () => string
-  getPrice: () => number
 }

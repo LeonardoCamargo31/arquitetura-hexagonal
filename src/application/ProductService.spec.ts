@@ -61,7 +61,7 @@ describe('ProductService', () => {
     it('should return a product', async () => {
       const { sut } = makeSut()
       const product = await sut.get(mockProduct.id)
-      expect(product.getId()).toBe(mockProduct.id)
+      expect(product.getId).toBe(mockProduct.id)
     })
   })
 
@@ -69,7 +69,7 @@ describe('ProductService', () => {
     it('should create a new product', async () => {
       const { sut } = makeSut()
       const product = await sut.create(mockProduct.name, mockProduct.price)
-      expect(product.getId()).toBe(mockProduct.id)
+      expect(product.getId).toBe(mockProduct.id)
     })
 
     it('should return null if invalid product', async () => {
@@ -85,7 +85,7 @@ describe('ProductService', () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 10 })
       const response = await sut.enable(product)
-      expect(response.getStatus()).toBe(StatusProduct.ENABLED)
+      expect(response.getStatus).toBe(StatusProduct.ENABLED)
     })
 
     it('should return error, if price is less than zero', async () => {
@@ -101,7 +101,7 @@ describe('ProductService', () => {
       const { sut } = makeSut()
       const product = new Product({ ...mockProduct, price: 0 })
       const response = await sut.disable(product)
-      expect(response.getStatus()).toBe(StatusProduct.DISABLED)
+      expect(response.getStatus).toBe(StatusProduct.DISABLED)
     })
 
     it('should return error, if price is greater than zero', async () => {

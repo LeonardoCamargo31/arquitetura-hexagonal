@@ -34,19 +34,19 @@ export class Product implements IProduct {
     })
   }
 
-  getId (): string {
+  get getId (): string {
     return this.id
   }
 
-  getName (): string {
+  get getName (): string {
     return this.name
   }
 
-  getStatus (): string {
+  get getStatus (): string {
     return this.status
   }
 
-  getPrice (): number {
+  get getPrice (): number {
     return this.price
   }
 

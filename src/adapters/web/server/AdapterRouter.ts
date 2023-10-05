@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { IHandler } from '../handler/IHandler'
-import { IHttpRequest } from '../handler/IHttpRequest'
+import { IHandler } from '../handler/interface/IHandler'
+import { IHttpRequest } from '../handler/interface/IHttpRequest'
 
 export const adapterRouter = (handler: IHandler): any => {
   return async (req: Request, res: Response) => {
