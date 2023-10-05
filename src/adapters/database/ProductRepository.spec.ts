@@ -1,21 +1,21 @@
 import { ProductProps, StatusProduct } from '../../application/interface/IProduct'
 import { MongoHelper } from './MongoHelper'
 import { v4 as uuidv4 } from 'uuid'
-import { ProductPersistence } from './ProductPersistence'
-import { IProductPersistence } from '../../application/interface/IProductPersistence'
+import { ProductRepository } from './ProductRepository'
+import { IProductRepository } from '../../application/interface/IProductRepository'
 import { Product } from '../../application/Product'
 
 interface SutTypes {
-  sut: IProductPersistence
+  sut: IProductRepository
 }
 
 const makeSut = (): SutTypes => {
   return {
-    sut: new ProductPersistence()
+    sut: new ProductRepository()
   }
 }
 
-describe('ProductPersistence', () => {
+describe('ProductRepository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })

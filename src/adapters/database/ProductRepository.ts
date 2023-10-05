@@ -1,8 +1,9 @@
 import { Product } from '../../application/Product'
 import { IProduct } from '../../application/interface/IProduct'
-import { IProductPersistence } from '../../application/interface/IProductPersistence'
+import { IProductRepository } from '../../application/interface/IProductRepository'
 import { MongoHelper } from './MongoHelper'
-export class ProductPersistence implements IProductPersistence {
+
+export class ProductRepository implements IProductRepository {
   async get (id: string): Promise<IProduct> {
     const productCollection = await MongoHelper.getCollection('product')
     const record = await productCollection.findOne({ id })

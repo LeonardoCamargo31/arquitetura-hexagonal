@@ -1,7 +1,7 @@
 import { Product } from './Product'
 import { ProductService } from './ProductService'
 import { IProduct, StatusProduct } from './interface/IProduct'
-import { IProductPersistence } from './interface/IProductPersistence'
+import { IProductRepository } from './interface/IProductRepository'
 import { IProductService } from './interface/IProductService'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -16,7 +16,7 @@ const mockProduct = {
   status: StatusProduct.DISABLED
 }
 
-class ProductPersistenceStub implements IProductPersistence {
+class ProductPersistenceStub implements IProductRepository {
   private readonly product: IProduct
 
   constructor () {
